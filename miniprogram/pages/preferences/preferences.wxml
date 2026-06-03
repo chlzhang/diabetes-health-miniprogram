@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="card">
+    <text class="section-title">饮食禁忌</text>
+    <text class="hint-text">勾选后，饮食计划会自动避开对应食材</text>
+    <view class="preference-list">
+      <view wx:for="{{dietaryRestrictions}}" wx:key="id" class="pref-item {{selectedDietary.indexOf(item.id)>=0?'on':''}}" data-id="{{item.id}}" bindtap="toggleDietary">
+        <view class="pref-info">
+          <text class="pref-name">{{item.name}}</text>
+          <text class="pref-desc">{{item.desc}}</text>
+        </view>
+        <view class="pref-check">
+          <text wx:if="{{selectedDietary.indexOf(item.id)>=0}}">✓</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">运动限制</text>
+    <text class="hint-text">勾选后，运动方案会自动避开相关动作</text>
+    <view class="preference-list">
+      <view wx:for="{{exerciseLimitations}}" wx:key="id" class="pref-item {{selectedExercise.indexOf(item.id)>=0?'on':''}}" data-id="{{item.id}}" bindtap="toggleExercise">
+        <view class="pref-info">
+          <text class="pref-name">{{item.name}}</text>
+          <text class="pref-desc">{{item.desc}}</text>
+        </view>
+        <view class="pref-check">
+          <text wx:if="{{selectedExercise.indexOf(item.id)>=0}}">✓</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="savePreferences" loading="{{saving}}">保存偏好</button>
+  <view class="bottom-hint">调整后会立即在「我的方案」中重新生成推荐</view>
+</view>

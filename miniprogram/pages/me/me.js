@@ -25,7 +25,7 @@ Page({
       if (res && res.userInfo) {
         that.setData({ userInfo: res.userInfo });
       }
-    });
+    }).catch(function() {});
     api.getFamilyMembers().then(function(res) {
       if (res && res.family) {
         that.setData({
@@ -37,7 +37,7 @@ Page({
       } else {
         that.setData({ hasFamily: false });
       }
-    });
+    }).catch(function() {});
     api.getDashboard().then(function(res) {
       that.setData({
         loading: false,
@@ -55,6 +55,21 @@ Page({
   },
   goFamily: function() {
     wx.switchTab({ url: "/pages/family/family" });
+  },
+  goProfile: function() {
+    wx.navigateTo({ url: "/pages/profile/profile" });
+  },
+  goPlan: function() {
+    wx.navigateTo({ url: "/pages/plan/plan" });
+  },
+  goTracking: function() {
+    wx.navigateTo({ url: "/pages/tracking/tracking" });
+  },
+  goPreferences: function() {
+    wx.navigateTo({ url: "/pages/preferences/preferences" });
+  },
+  goAIChat: function() {
+    wx.navigateTo({ url: "/pages/aichat/aichat" });
   },
   clearCache: function() {
     wx.showModal({

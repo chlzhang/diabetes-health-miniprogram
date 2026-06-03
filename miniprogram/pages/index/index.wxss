@@ -96,6 +96,13 @@
   color: #666;
   margin-top: 8rpx;
 }
+.plan-card { padding: 24rpx; }
+.plan-row { display: flex; align-items: center; }
+.plan-icon { font-size: 48rpx; margin-right: 20rpx; }
+.plan-info { flex: 1; }
+.plan-title { font-size: 30rpx; font-weight: 600; color: #1a1a1a; display: block; }
+.plan-sub { font-size: 22rpx; color: #666; margin-top: 4rpx; display: block; }
+
 .family-list {
   margin-top: 8rpx;
 }

@@ -9,6 +9,7 @@
 .stat-number { font-size: 40rpx; font-weight: 700; color: #0d9488; display: block; }
 .stat-label { font-size: 20rpx; color: #999; display: block; margin-top: 4rpx; }
 .menu-card { padding: 0; }
+.menu-section-title { font-size: 24rpx; color: #999; padding: 16rpx 24rpx 0; }
 .menu-item { display: flex; align-items: center; padding: 28rpx 24rpx; border-bottom: 1rpx solid #f3f4f6; }
 .menu-item:last-child { border-bottom: none; }
 .menu-icon { font-size: 36rpx; margin-right: 16rpx; }

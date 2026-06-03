@@ -5,7 +5,12 @@
     "pages/exercise/exercise",
     "pages/bloodsugar/bloodsugar",
     "pages/family/family",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/profile/profile",
+    "pages/preferences/preferences",
+    "pages/plan/plan",
+    "pages/tracking/tracking",
+    "pages/aichat/aichat"
   ],
   "window": {
     "backgroundTextStyle": "light",

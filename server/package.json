@@ -1,0 +1,20 @@
+{
+  "name": "diabetes-health-backend",
+  "version": "1.0.0",
+  "description": "健康守护后端服务 - LLM 个性化健康方案 + 数据分析",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node scripts/seed.js",
+    "test:api": "node scripts/test-api.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.19.2"
+  }
+}

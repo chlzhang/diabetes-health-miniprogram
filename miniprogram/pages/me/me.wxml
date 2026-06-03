@@ -29,6 +29,36 @@
   </view>
 
   <view class="card menu-card">
+    <view class="menu-section-title">个性化</view>
+    <view class="menu-item" bindtap="goProfile">
+      <text class="menu-icon">📊</text>
+      <text class="menu-text">身体数据</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goPlan">
+      <text class="menu-icon">📋</text>
+      <text class="menu-text">我的方案</text>
+      <text class="menu-arrow">饮食 · 运动 ›</text>
+    </view>
+    <view class="menu-item" bindtap="goTracking">
+      <text class="menu-icon">📈</text>
+      <text class="menu-text">打卡追踪</text>
+      <text class="menu-arrow">依从率 ›</text>
+    </view>
+    <view class="menu-item" bindtap="goAIChat">
+      <text class="menu-icon">💬</text>
+      <text class="menu-text">AI 健康助手</text>
+      <text class="menu-arrow">大模型驱动 ›</text>
+    </view>
+    <view class="menu-item" bindtap="goPreferences">
+      <text class="menu-icon">⚙️</text>
+      <text class="menu-text">偏好设置</text>
+      <text class="menu-arrow">饮食禁忌 · 运动限制 ›</text>
+    </view>
+  </view>
+
+  <view class="card menu-card">
+    <view class="menu-section-title">其他</view>
     <view class="menu-item" bindtap="goFamily">
       <text class="menu-icon">👨‍👩‍👧‍👦</text>
       <text class="menu-text">家庭管理</text>

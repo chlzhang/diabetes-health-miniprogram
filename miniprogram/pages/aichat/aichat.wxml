@@ -1,0 +1,42 @@
+<view class="chat-page">
+  <scroll-view class="chat-scroll" scroll-y="true" scroll-into-view="" scroll-top="{{scrollTop}}" enhanced="true">
+    <view class="chat-list">
+      <view wx:for="{{messages}}" wx:key="time" class="msg-row {{item.role==='user'?'msg-user':'msg-ai'}}">
+        <view class="avatar {{item.role==='user'?'avatar-user':'avatar-ai'}}">{{item.role==='user'?'我':'AI'}}</view>
+        <view class="bubble {{item.role==='user'?'bubble-user':'bubble-ai'}}">
+          <text class="bubble-text">{{item.content}}</text>
+          <view wx:if="{{item.source === 'fallback'}}" class="bubble-source">本地兜底</view>
+        </view>
+      </view>
+      <view class="msg-row msg-ai" wx:if="{{sending}}">
+        <view class="avatar avatar-ai">AI</view>
+        <view class="bubble bubble-ai">
+          <view class="typing">
+            <view class="typing-dot"></view>
+            <view class="typing-dot"></view>
+            <view class="typing-dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="quick-bar" wx:if="{{messages.length <= 1}}">
+    <text class="quick-title">试试这些问题：</text>
+    <view class="quick-list">
+      <view wx:for="{{quickPrompts}}" wx:key="*this" class="quick-pill" data-text="{{item}}" bindtap="onQuickTap">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="quick-bar" wx:elif="{{messages[messages.length-1].followup}}">
+    <view class="quick-list">
+      <view class="quick-pill" data-text="{{messages[messages.length-1].followup}}" bindtap="onQuickTap">{{messages[messages.length-1].followup}}</view>
+    </view>
+  </view>
+
+  <view class="input-bar">
+    <view class="clear-btn" bindtap="clearHistory">🗑</view>
+    <input class="chat-input" value="{{inputText}}" bindinput="onInput" bindconfirm="onSendTap" placeholder="说点什么…（如：餐后血糖偏高怎么办）" confirm-type="send" hold-keyboard="true"/>
+    <button class="send-btn" bindtap="onSendTap" disabled="{{sending || !inputText}}">发送</button>
+  </view>
+</view>

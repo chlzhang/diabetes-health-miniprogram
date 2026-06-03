@@ -23,6 +23,7 @@ Page({
     var that = this;
     that.setData({ loading: true });
     api.getDashboard().then(function (res) {
+      res = res || {};
       var ex = res.exercise || { count: 0, minutes: 0, goal: constants.WEEKLY_EXERCISE_GOAL };
       var goal = ex.goal || constants.WEEKLY_EXERCISE_GOAL;
       var pct = goal > 0 ? Math.round(ex.minutes / goal * 100) : 0;
@@ -48,6 +49,12 @@ Page({
   },
   goBloodSugar: function () {
     wx.navigateTo({ url: '/pages/bloodsugar/bloodsugar' });
+  },
+  goPlan: function () {
+    wx.navigateTo({ url: '/pages/plan/plan' });
+  },
+  goTracking: function () {
+    wx.navigateTo({ url: '/pages/tracking/tracking' });
   },
   onPullDownRefresh: function () {
     var that = this;

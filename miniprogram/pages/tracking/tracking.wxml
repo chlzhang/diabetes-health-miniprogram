@@ -1,0 +1,102 @@
+<view class="container">
+  <view class="loading-state" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading}}">
+    <view class="card hero-card">
+      <view class="hero-row">
+        <view class="hero-item">
+          <text class="hero-num">{{stats.streakDays}}</text>
+          <text class="hero-label">连续打卡 (天)</text>
+        </view>
+        <view class="hero-divider"></view>
+        <view class="hero-item">
+          <text class="hero-num">{{stats.dietAdherence}}%</text>
+          <text class="hero-label">饮食依从</text>
+        </view>
+        <view class="hero-divider"></view>
+        <view class="hero-item">
+          <text class="hero-num">{{stats.exerciseAdherence}}%</text>
+          <text class="hero-label">运动依从</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="range-bar">
+      <view wx:for="{{ranges}}" wx:key="id" class="range-btn {{selectedRange===item.id?'on':''}}" data-id="{{item.id}}" bindtap="switchRange">
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">每日打卡情况</text>
+      <text class="hint-text">✓ = 饮食完成 · ● = 运动 ≥ 30 分钟</text>
+      <view class="week-grid">
+        <view wx:for="{{weeklyView}}" wx:key="date" class="day-cell">
+          <text class="day-label">{{item.dayLabel}}</text>
+          <view class="day-bars">
+            <view class="bar diet-bar {{item.dietOk?'on':''}}"></view>
+            <view class="bar ex-bar {{item.exOk?'on':''}}"></view>
+          </view>
+          <text class="day-meta">{{item.mealCount}}餐 · {{item.exerciseMinutes}}分</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">数据概览</text>
+      <view class="stat-row">
+        <view class="stat-block">
+          <text class="stat-num">{{stats.avgKcal}}</text>
+          <text class="stat-label">日均摄入 (千卡)</text>
+          <text class="stat-target">目标 {{targetKcal}}</text>
+        </view>
+        <view class="stat-block">
+          <text class="stat-num">{{stats.totalExerciseMinutes}}</text>
+          <text class="stat-label">运动总时长 (分钟)</text>
+          <text class="stat-target">日均 {{stats.avgExerciseMinutes}} 分</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">最近饮食</text>
+      <view wx:if="{{recentMeals.length === 0}}" class="empty-mini">暂无记录</view>
+      <view wx:for="{{recentMeals}}" wx:key="_id" class="recent-item">
+        <view class="recent-left">
+          <text class="recent-type">{{item.mealType === 'breakfast' ? '早餐' : item.mealType === 'lunch' ? '午餐' : item.mealType === 'dinner' ? '晚餐' : '加餐'}}</text>
+          <text class="recent-date">{{item.date}}</text>
+        </view>
+        <view class="tag tag-{{item.healthLevel || item.health_level || 'ok'}}">{{item.healthLevel === 'good' || item.health_level === 'good' ? '健康' : (item.healthLevel === 'ok' || item.health_level === 'ok' ? '一般' : '注意')}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">最近运动</text>
+      <view wx:if="{{recentExercises.length === 0}}" class="empty-mini">暂无记录</view>
+      <view wx:for="{{recentExercises}}" wx:key="_id" class="recent-item">
+        <view class="recent-left">
+          <text class="recent-type">{{item.sportType === 'walking' ? '快走' : item.sportType === 'jogging' ? '慢跑' : item.sportType === 'cycling' ? '骑车' : item.sportType === 'swimming' ? '游泳' : item.sportType === 'yoga' ? '瑜伽' : item.sportType === 'strength' ? '力量训练' : item.sportType === 'taiji' ? '太极' : '广场舞'}}</text>
+          <text class="recent-date">{{item.date}} · {{item.duration_min || item.duration}}分钟</text>
+        </view>
+        <text class="recent-kcal">{{item.calories || 0}}千卡</text>
+      </view>
+    </view>
+
+    <view class="quick-row">
+      <view class="quick-btn" bindtap="goRecordMeal">
+        <text class="quick-icon">🍽️</text>
+        <text class="quick-label">记饮食</text>
+      </view>
+      <view class="quick-btn" bindtap="goRecordExercise">
+        <text class="quick-icon">🏃</text>
+        <text class="quick-label">记运动</text>
+      </view>
+      <view class="quick-btn" bindtap="goPlan">
+        <text class="quick-icon">📋</text>
+        <text class="quick-label">看方案</text>
+      </view>
+    </view>
+  </block>
+</view>

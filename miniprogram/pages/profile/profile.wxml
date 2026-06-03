@@ -1,0 +1,90 @@
+<view class="container">
+  <view class="card hero-card">
+    <view class="hero-row">
+      <view class="hero-item">
+        <text class="hero-num" wx:if="{{bmi}}">{{bmi}}</text>
+        <text class="hero-num hero-empty" wx:else>--</text>
+        <text class="hero-label">BMI</text>
+        <view class="hero-tag" wx:if="{{bmiLabel}}" style="background:{{bmiColor}}1a; color:{{bmiColor}}">{{bmiLabel}}</view>
+      </view>
+      <view class="hero-divider"></view>
+      <view class="hero-item">
+        <text class="hero-num" wx:if="{{target}}">{{target}}</text>
+        <text class="hero-num hero-empty" wx:else>--</text>
+        <text class="hero-label">推荐热量 (千卡/天)</text>
+      </view>
+    </view>
+    <view class="hero-tdee">基础代谢 {{tdee || '--'}} 千卡 · 目标调整后 {{target || '--'}} 千卡</view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">身体数据</text>
+    <view class="form-row">
+      <view class="form-col">
+        <text class="form-label">身高 (cm)</text>
+        <input class="form-input" type="number" placeholder="例如 170" value="{{profile.height_cm}}" bindinput="onHeightInput"/>
+      </view>
+      <view class="form-col">
+        <text class="form-label">体重 (kg)</text>
+        <input class="form-input" type="number" placeholder="例如 65" value="{{profile.weight_kg}}" bindinput="onWeightInput"/>
+      </view>
+    </view>
+    <view class="form-group">
+      <text class="form-label">年龄</text>
+      <input class="form-input" type="number" placeholder="例如 45" value="{{profile.age}}" bindinput="onAgeInput"/>
+    </view>
+    <view class="form-group">
+      <text class="form-label">性别</text>
+      <view class="chip-row">
+        <view wx:for="{{genders}}" wx:key="id" class="chip {{profile.gender===item.id?'on':''}}" data-id="{{item.id}}" bindtap="pickGender">
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">活动水平</text>
+    <view class="chip-row wrap">
+      <view wx:for="{{activityLevels}}" wx:key="id" class="chip {{profile.activity_level===item.id?'on':''}}" data-id="{{item.id}}" bindtap="pickActivity">
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+    <text class="hint-text">用于估算每日总能量消耗 (TDEE)</text>
+  </view>
+
+  <view class="card">
+    <text class="section-title">健康目标</text>
+    <view class="goal-list">
+      <view wx:for="{{goals}}" wx:key="id" class="goal-item {{profile.health_goal===item.id?'on':''}}" data-id="{{item.id}}" bindtap="pickGoal">
+        <text class="goal-icon">{{item.icon}}</text>
+        <view class="goal-info">
+          <text class="goal-name">{{item.name}}</text>
+          <text class="goal-desc">{{item.desc}}</text>
+        </view>
+        <view class="goal-check" wx:if="{{profile.health_goal===item.id}}">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{target}}">
+    <text class="section-title">营养素目标 (克/天)</text>
+    <view class="macro-grid">
+      <view class="macro-item protein">
+        <text class="macro-num">{{macros.protein_g}}</text>
+        <text class="macro-label">蛋白质 g</text>
+      </view>
+      <view class="macro-item carb">
+        <text class="macro-num">{{macros.carb_g}}</text>
+        <text class="macro-label">碳水 g</text>
+      </view>
+      <view class="macro-item fat">
+        <text class="macro-num">{{macros.fat_g}}</text>
+        <text class="macro-label">脂肪 g</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="saveProfile" loading="{{saving}}">保存并生成计划</button>
+  <view class="bottom-hint">保存后将自动生成专属饮食与运动方案</view>
+</view>

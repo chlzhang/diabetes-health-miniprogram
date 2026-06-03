@@ -1,0 +1,162 @@
+<view class="container">
+  <view class="loading-state" wx:if="{{loading}}">
+    <text class="loading-text">正在生成方案...</text>
+  </view>
+
+  <view wx:if="{{!loading && !hasProfile}}">
+    <view class="empty-state">
+      <text class="empty-icon">📋</text>
+      <text class="empty-title">完善身体数据</text>
+      <text class="empty-desc">填写身高、体重、年龄与目标后，自动生成专属方案</text>
+      <button class="btn-primary" bindtap="goProfile" style="margin-top:32rpx;">去填写</button>
+    </view>
+  </view>
+
+  <block wx:if="{{!loading && hasProfile}}">
+    <view class="card hero-card">
+      <view class="hero-row">
+        <view class="hero-item">
+          <text class="hero-num">{{targetKcal}}</text>
+          <text class="hero-label">推荐热量 (千卡/天)</text>
+        </view>
+        <view class="hero-divider"></view>
+        <view class="hero-item">
+          <text class="hero-num">{{bmi || '--'}}</text>
+          <text class="hero-label">BMI · {{bmiLabel}}</text>
+        </view>
+        <view class="hero-divider"></view>
+        <view class="hero-item">
+          <text class="hero-num">{{goalName}}</text>
+          <text class="hero-label">当前目标</text>
+        </view>
+      </view>
+      <view class="hero-macro">
+        <view class="macro-pill protein">蛋白质 {{macros.protein_g}}g</view>
+        <view class="macro-pill carb">碳水 {{macros.carb_g}}g</view>
+        <view class="macro-pill fat">脂肪 {{macros.fat_g}}g</view>
+      </view>
+    </view>
+
+    <view class="tab-bar">
+      <view wx:for="{{tabs}}" wx:key="id" class="tab {{activeTab===item.id?'on':''}}" data-id="{{item.id}}" bindtap="switchTab">
+        <text class="tab-icon">{{item.icon}}</text>
+        <text class="tab-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <!-- 饮食方案 -->
+    <view wx:if="{{activeTab==='diet'}}">
+      <view class="card">
+        <view class="card-header">
+          <text class="section-title">今日 4 餐</text>
+          <text class="card-meta">合计 ~{{diet.targetKcal}} 千卡</text>
+        </view>
+        <view class="meal-list">
+          <view wx:for="{{diet.meals}}" wx:for-item="m" wx:key="id" class="meal-card">
+            <view class="meal-card-head">
+              <text class="meal-icon">{{m.icon}}</text>
+              <text class="meal-name">{{m.name}}</text>
+              <view class="meal-kcal">≈ {{m.actualKcal}} 千卡</view>
+            </view>
+            <view class="dish-list">
+              <view wx:for="{{m.items}}" wx:for-item="d" wx:key="dish.id" class="dish-row">
+                <view class="dish-tag">{{d.role}}</view>
+                <view class="dish-info">
+                  <text class="dish-name">{{d.dish.icon}} {{d.dish.name}}</text>
+                  <text class="dish-unit">{{d.dish.unit}} · {{d.dish.kcal}}千卡</text>
+                </view>
+                <view class="dish-macro">
+                  <text class="macro-mini">P{{d.dish.protein}}</text>
+                  <text class="macro-mini">C{{d.dish.carb}}</text>
+                  <text class="macro-mini">F{{d.dish.fat}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="quick-row">
+        <view class="quick-btn" bindtap="goRecordMeal">
+          <text class="quick-icon">🍽️</text>
+          <text class="quick-label">记饮食</text>
+        </view>
+        <view class="quick-btn" bindtap="goPreferences">
+          <text class="quick-icon">⚙️</text>
+          <text class="quick-label">调整偏好</text>
+        </view>
+        <view class="quick-btn" bindtap="regenerate">
+          <text class="quick-icon">🔄</text>
+          <text class="quick-label">换一组</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 运动方案 -->
+    <view wx:if="{{activeTab==='exercise'}}">
+      <view class="card today-card" wx:if="{{todayExercise}}">
+        <text class="section-title">今日运动 ({{weekNames[selectedDay-1]}})</text>
+        <view class="focus-tag focus-{{todayExercise.focus}}">{{todayExercise.focus === 'rest' ? '休息日' : (todayExercise.focus === 'cardio' ? '有氧日' : (todayExercise.focus === 'strength' ? '力量日' : '柔韧日'))}}</view>
+        <view class="today-items">
+          <view wx:for="{{todayExercise.items}}" wx:for-item="it" wx:key="id" class="today-item">
+            <text class="today-icon">{{it.icon}}</text>
+            <view class="today-info">
+              <text class="today-name">{{it.name}}</text>
+              <text class="today-meta">{{it.intensity === 'light' ? '低强度' : it.intensity === 'moderate' ? '中强度' : '高强度'}} · {{it.type === 'cardio' ? '有氧' : (it.type === 'strength' ? '力量' : '柔韧')}}</text>
+            </view>
+            <view class="today-time">
+              <text class="time-num">{{it.plannedMinutes}}</text>
+              <text class="time-unit">分钟</text>
+            </view>
+          </view>
+          <view class="today-empty" wx:if="{{todayExercise.items.length === 0}}">
+            <text>今日推荐休息，可适当散步放松</text>
+          </view>
+        </view>
+        <view class="today-foot">
+          <text>计划总时长 {{todayExercise.totalMinutes}} 分钟</text>
+        </view>
+      </view>
+
+      <view class="card">
+        <text class="section-title">本周安排</text>
+        <view class="week-row">
+          <view wx:for="{{weeklyPlan}}" wx:key="day" class="day-cell {{selectedDay===item.day?'on':''}}" data-day="{{item.day}}" bindtap="pickDay">
+            <text class="day-name">{{weekNames[item.day-1]}}</text>
+            <view class="day-dot focus-{{item.focus}}"></view>
+            <text class="day-time">{{item.totalMinutes}}'</text>
+          </view>
+        </view>
+        <view class="day-detail" wx:if="{{weeklyPlan.length}}">
+          <view class="day-detail-head">
+            <text class="day-detail-title">星期{{weekNames[selectedDay-1]}} · {{weeklyPlan[selectedDay-1].focus === 'rest' ? '休息日' : (weeklyPlan[selectedDay-1].focus === 'cardio' ? '有氧日' : (weeklyPlan[selectedDay-1].focus === 'strength' ? '力量日' : '柔韧日'))}}</text>
+            <text class="day-detail-time">{{weeklyPlan[selectedDay-1].totalMinutes}} 分钟</text>
+          </view>
+          <view wx:for="{{weeklyPlan[selectedDay-1].items}}" wx:for-item="it" wx:key="id" class="day-detail-item">
+            <text class="d-icon">{{it.icon}}</text>
+            <view class="d-info">
+              <text class="d-name">{{it.name}}</text>
+              <text class="d-meta">MET {{it.met}} · {{it.intensity === 'light' ? '低强度' : it.intensity === 'moderate' ? '中强度' : '高强度'}}</text>
+            </view>
+            <text class="d-time">{{it.plannedMinutes}} 分钟</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="quick-row">
+        <view class="quick-btn" bindtap="goRecordExercise">
+          <text class="quick-icon">🏃</text>
+          <text class="quick-label">记运动</text>
+        </view>
+        <view class="quick-btn" bindtap="goPreferences">
+          <text class="quick-icon">⚙️</text>
+          <text class="quick-label">调整限制</text>
+        </view>
+        <view class="quick-btn" bindtap="goProfile">
+          <text class="quick-icon">🎯</text>
+          <text class="quick-label">改目标</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
