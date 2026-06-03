@@ -40,7 +40,7 @@
     <view class="summary-row">
       <view class="summary-icon">🩸</view>
       <view class="summary-info">
-        <text class="summary-title">血糖监测</text>
+        <text class="summary-title">健康指标</text>
         <text class="summary-sub" wx:if="{{bloodSugar.latest !== null}}">
           最新 {{bloodSugar.latest}} mmol/L
         </text>
@@ -64,7 +64,7 @@
     </view>
     <view class="action-btn" bindtap="goBloodSugar">
       <text class="action-icon">+</text>
-      <text class="action-label">测血糖</text>
+      <text class="action-label">记指标</text>
     </view>
   </view>
 

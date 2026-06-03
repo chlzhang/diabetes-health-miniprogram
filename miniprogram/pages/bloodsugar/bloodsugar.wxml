@@ -37,7 +37,7 @@
     </view>
   </view>
 
-  <button class="btn-primary" bindtap="submitBloodSugar" loading="{{submitting}}">保存血糖记录</button>
+  <button class="btn-primary" bindtap="submitBloodSugar" loading="{{submitting}}">保存数值</button>
 
   <view class="card" wx:if="{{todayRecords.length>0}}">
     <text class="section-title">今日记录</text>

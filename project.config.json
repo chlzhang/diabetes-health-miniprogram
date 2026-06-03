@@ -28,7 +28,7 @@
   },
   "appid": "wxf384de5176507594",
   "projectname": "sugar-guardian",
-  "description": "糖前期生活监督小程序",
+  "description": "健康生活助手小程序",
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {
     "wxext14566970e7e9f62": "2.27.3"

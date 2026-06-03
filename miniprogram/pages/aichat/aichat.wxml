@@ -37,7 +37,7 @@
 
   <view class="input-bar">
     <view class="clear-btn" bindtap="clearHistory">🗑</view>
-    <input class="chat-input" value="{{inputText}}" bindinput="onInput" bindconfirm="onSendTap" placeholder="说点什么…（如：餐后血糖偏高怎么办）" confirm-type="send" hold-keyboard="true"/>
+    <input class="chat-input" value="{{inputText}}" bindinput="onInput" bindconfirm="onSendTap" placeholder="说点什么…（如：餐后数值偏高怎么办）" confirm-type="send" hold-keyboard="true"/>
     <button class="send-btn" bindtap="onSendTap" disabled="{{sending || !inputText}}">发送</button>
   </view>
 </view>

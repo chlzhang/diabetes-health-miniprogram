@@ -1,6 +1,6 @@
 'use strict';
 /**
- * 血糖数据分析
+ * 健康指标数据分析
  * - TIR (Time in Range) 目标区间：3.9 - 7.8 mmol/L
  * - 分时段统计：空腹 / 餐后2h / 睡前
  * - 趋势：最近 3 天 vs 之前
@@ -69,13 +69,13 @@ function analyze(records, days) {
 
   // 5) 异常模式
   const issues = [];
-  if (totalCount === 0) issues.push('近 ' + days + ' 天无血糖记录');
-  if (tirPercent > 0 && tirPercent < 60) issues.push('血糖达标率偏低（< 60%）');
-  if (typeStats.fasting && typeStats.fasting.highRate > 30) issues.push('空腹血糖偏高频率 > 30%');
-  if (typeStats.post_meal && typeStats.post_meal.highRate > 40) issues.push('餐后 2 小时血糖偏高频率 > 40%');
-  if (typeStats.fasting && typeStats.fasting.lowRate > 10) issues.push('存在低血糖风险');
-  if (variability.stdDev > 1.5) issues.push('血糖波动较大（标准差 > 1.5）');
-  if (trend.direction === 'increasing' && trend.delta > 0.5) issues.push('近期血糖有上升趋势');
+  if (totalCount === 0) issues.push('近 ' + days + ' 天无健康指标记录');
+  if (tirPercent > 0 && tirPercent < 60) issues.push('指标达标率偏低（< 60%）');
+  if (typeStats.fasting && typeStats.fasting.highRate > 30) issues.push('空腹指标偏高频率 > 30%');
+  if (typeStats.post_meal && typeStats.post_meal.highRate > 40) issues.push('餐后 2 小时指标偏高频率 > 40%');
+  if (typeStats.fasting && typeStats.fasting.lowRate > 10) issues.push('存在数值偏低情况');
+  if (variability.stdDev > 1.5) issues.push('数值波动较大（标准差 > 1.5）');
+  if (trend.direction === 'increasing' && trend.delta > 0.5) issues.push('近期数值有上升趋势');
 
   return {
     rangeDays: days,

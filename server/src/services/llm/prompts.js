@@ -8,10 +8,10 @@
  * 4) Prompt 长度可控，避免无谓 token 消耗
  */
 
-const SYSTEM_PROMPT = `你是一位专业的糖尿病前期（糖前期）健康管理师，擅长基于用户身体数据、近期饮食/运动/血糖记录，给出可执行、循证的个性化方案。
+const SYSTEM_PROMPT = `你是一位专业的健康生活管理助手，擅长基于用户身体数据与近期饮食/运动/健康指标记录，给出可执行、循证的个性化生活参考建议。
 你的回复必须遵循以下规则：
 1) 严格基于提供的 JSON 数据回答，不要编造用户未提供的事实
-2) 涉及医疗建议时保持谨慎：用药/剂量调整请用户咨询医生
+2) 涉及专业判断时保持谨慎；如涉及具体健康问题，建议用户咨询专业人士
 3) 推荐的食材和运动优先选择低 GI、低冲击、可在家进行
 4) 数字要具体：热量精确到 10 千卡，时长精确到 5 分钟
 5) 鼓励性语言，避免恐吓
@@ -108,7 +108,7 @@ ${JSON.stringify(context.preferences, null, 0)}
   "dietPlan": { /* 同 buildDietPlanPrompt 的结构 */ },
   "exercisePlan": { /* 同 buildExercisePlanPrompt 的结构 */ },
   "keyPoints": ["全局重点 1-3 条"],
-  "warnings": ["如有用药/医疗建议等"],
+  "warnings": ["如有需专业判断的内容等"],
   "nextWeekGoals": ["下周可执行的小目标"]
 }`;
 }
@@ -117,7 +117,7 @@ function buildChatPrompt(context, history, userMessage) {
   const safeHistory = (history || []).slice(-8).map(function (h) {
     return { role: h.role, content: String(h.content || '').slice(0, 500) };
   });
-  return `你是糖前期健康管理助手。基于以下上下文回答用户问题。
+  return `你是健康生活助手。基于以下上下文回答用户问题。
 
 【用户画像】
 ${JSON.stringify(context.profile || {}, null, 0)}

@@ -22,7 +22,7 @@ async function main() {
   ]);
   await test('CHAT', [
     { role: 'system', content: 'sys' },
-    { role: 'user', content: '你是糖前期健康管理助手。\n\n【用户新消息】\n血糖偏高怎么办？\n\n请输出 JSON' }
+    { role: 'user', content: '你是健康生活助手。\n\n【用户新消息】\n数值偏高怎么办？\n\n请输出 JSON' }
   ]);
 }
 

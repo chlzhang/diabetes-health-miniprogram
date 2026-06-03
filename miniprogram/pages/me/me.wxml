@@ -24,7 +24,7 @@
     </view>
     <view class="stat-card">
       <text class="stat-number">{{stats.totalBSChecks}}</text>
-      <text class="stat-label">血糖测量</text>
+      <text class="stat-label">健康测量</text>
     </view>
   </view>
 
@@ -47,7 +47,7 @@
     </view>
     <view class="menu-item" bindtap="goAIChat">
       <text class="menu-icon">💬</text>
-      <text class="menu-text">AI 健康助手</text>
+      <text class="menu-text">AI 助手</text>
       <text class="menu-arrow">大模型驱动 ›</text>
     </view>
     <view class="menu-item" bindtap="goPreferences">
@@ -77,7 +77,26 @@
     </view>
   </view>
 
+  <view class="card menu-card">
+    <view class="menu-section-title">关于</view>
+    <view class="menu-item" bindtap="goLegal" data-type="user-agreement">
+      <text class="menu-icon">📄</text>
+      <text class="menu-text">用户协议</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goLegal" data-type="privacy-policy">
+      <text class="menu-icon">🔒</text>
+      <text class="menu-text">隐私政策</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goLegal" data-type="health-disclaimer">
+      <text class="menu-icon">⚕️</text>
+      <text class="menu-text">健康免责声明</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
   <view class="footer">
-    <text class="footer-text">糖前期生活监督 v1.0.0</text>
+    <text class="footer-text">健康生活助手 v1.0.0</text>
   </view>
 </view>

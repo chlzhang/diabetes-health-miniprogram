@@ -67,7 +67,7 @@
     maintain: { protein: 0.25, carb: 0.50, fat: 0.25 },
     gain_muscle: { protein: 0.30, carb: 0.50, fat: 0.20 }
   },
-  // 菜品库（糖尿病友好）
+  // 菜品库（低 GI 优选）
   DISH_DATABASE: {
     staple: [
       { id: 'mixed_grain_rice', name: '杂粮饭', unit: '1 碗 (150g)', kcal: 180, protein: 5, carb: 38, fat: 1, tags: ['low_gi'], icon: '🍚' },

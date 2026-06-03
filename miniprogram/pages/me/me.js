@@ -71,6 +71,10 @@ Page({
   goAIChat: function() {
     wx.navigateTo({ url: "/pages/aichat/aichat" });
   },
+  goLegal: function(e) {
+    var type = (e && e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.type) || 'user-agreement';
+    wx.navigateTo({ url: '/pages/legal/legal?type=' + type });
+  },
   clearCache: function() {
     wx.showModal({
       title: "提示",

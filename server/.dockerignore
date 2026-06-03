@@ -1,0 +1,31 @@
+# ===== Node =====
+node_modules
+npm-debug.log
+yarn-error.log
+
+# ===== 环境变量（用 docker-compose env_file 注入） =====
+.env
+.env.local
+.env.*.local
+.env.production
+
+# ===== 数据 & 日志（用 volume 挂载） =====
+data/
+*.log
+logs/
+
+# ===== SSL 证书（用 volume 挂载或 deploy.sh 拷贝） =====
+nginx/ssl/
+
+# ===== Git & IDE =====
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# ===== Docker 自身 =====
+docker-compose.yml
+Dockerfile
+.dockerignore

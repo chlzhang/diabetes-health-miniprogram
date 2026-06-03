@@ -10,7 +10,8 @@
     "pages/preferences/preferences",
     "pages/plan/plan",
     "pages/tracking/tracking",
-    "pages/aichat/aichat"
+    "pages/aichat/aichat",
+    "pages/legal/legal"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -26,9 +26,9 @@ Page({
     var status = util.getBloodSugarStatus(val, this.data.activeTimePoint);
     var std = constants.BLOOD_SUGAR_STANDARDS[this.data.activeTimePoint];
     var suggestion = "";
-    if (status === "normal") suggestion = "血糖正常，请继续保持";
-    else if (status === "high") suggestion = "血糖偏高，建议控制饮食并适量运动";
-    else suggestion = "血糖偏低，请及时补充糖分";
+    if (status === "normal") suggestion = "数值正常，请继续保持";
+    else if (status === "high") suggestion = "数值偏高，建议关注饮食并适量运动";
+    else suggestion = "数值偏低，请及时补充能量";
     this.setData({
       statusResult: {
         value: val,
