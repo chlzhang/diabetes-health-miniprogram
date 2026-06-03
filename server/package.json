@@ -7,7 +7,8 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed": "node scripts/seed.js",
-    "test:api": "node scripts/test-api.js"
+    "test:api": "node scripts/test-api.js",
+    "test:fallback": "node scripts/test-fallback.js"
   },
   "engines": {
     "node": ">=18.0.0"

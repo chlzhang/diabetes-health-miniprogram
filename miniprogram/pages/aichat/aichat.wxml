@@ -5,7 +5,8 @@
         <view class="avatar {{item.role==='user'?'avatar-user':'avatar-ai'}}">{{item.role==='user'?'我':'AI'}}</view>
         <view class="bubble {{item.role==='user'?'bubble-user':'bubble-ai'}}">
           <text class="bubble-text">{{item.content}}</text>
-          <view wx:if="{{item.source === 'fallback'}}" class="bubble-source">本地兜底</view>
+          <view wx:if="{{item.source === 'rule' || item.source === 'fallback'}}" class="bubble-source">本地规则</view>
+          <view wx:elif="{{item.source === 'error'}}" class="bubble-source">生成失败</view>
         </view>
       </view>
       <view class="msg-row msg-ai" wx:if="{{sending}}">

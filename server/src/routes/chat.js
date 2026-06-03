@@ -21,11 +21,14 @@ router.post('/', async function (req, res) {
   if (message.length > 1000) return fail(res, codes.PARAM_INVALID, '消息过长（>1000 字符）');
   const history = Array.isArray(body.history) ? body.history : [];
   const result = await recommend.chat(userId, history, message);
+  let message2 = 'ok';
+  if (result.source === 'rule') message2 = '已使用本地方案（AI 暂时不可用）';
+  else if (!result.ok) message2 = '生成失败';
   return ok(res, {
     reply: result.reply,
     analysis: result.analysis,
     source: result.source
-  }, result.ok ? 'ok' : '已使用本地兜底');
+  }, message2);
 });
 
 module.exports = router;

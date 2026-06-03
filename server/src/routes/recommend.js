@@ -17,13 +17,20 @@ function validateUserId(req) {
   return String(userId);
 }
 
+function describeSource(source, ok) {
+  if (!ok) return '生成失败';
+  if (source === 'llm') return '由 AI 生成';
+  if (source === 'rule') return '已使用本地方案生成（AI 暂时不可用）';
+  return 'ok';
+}
+
 router.post('/diet', async function (req, res) {
   const userId = validateUserId(req);
   if (!userId) return fail(res, codes.PARAM_INVALID, '缺少 userId');
   const days = Math.max(1, Math.min(90, parseInt((req.body && req.body.days) || 7, 10)));
   const result = await recommend.generateDiet(userId, { days: days });
   if (result.error) return fail(res, codes.NOT_FOUND, '用户不存在: ' + userId);
-  return ok(res, result, result.ok ? '由 LLM 生成' : '已使用本地兜底方案');
+  return ok(res, result, describeSource(result.source, result.ok));
 });
 
 router.post('/exercise', async function (req, res) {
@@ -32,7 +39,7 @@ router.post('/exercise', async function (req, res) {
   const days = Math.max(1, Math.min(90, parseInt((req.body && req.body.days) || 7, 10)));
   const result = await recommend.generateExercise(userId, { days: days });
   if (result.error) return fail(res, codes.NOT_FOUND, '用户不存在: ' + userId);
-  return ok(res, result, result.ok ? '由 LLM 生成' : '已使用本地兜底方案');
+  return ok(res, result, describeSource(result.source, result.ok));
 });
 
 router.post('/comprehensive', async function (req, res) {
@@ -41,7 +48,7 @@ router.post('/comprehensive', async function (req, res) {
   const days = Math.max(1, Math.min(90, parseInt((req.body && req.body.days) || 7, 10)));
   const result = await recommend.generateComprehensive(userId, { days: days });
   if (result.error) return fail(res, codes.NOT_FOUND, '用户不存在: ' + userId);
-  return ok(res, result, result.ok ? '由 LLM 生成' : '已使用本地兜底方案');
+  return ok(res, result, describeSource(result.source, result.ok));
 });
 
 router.get('/context/:userId', function (req, res) {
