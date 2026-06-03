@@ -1,0 +1,77 @@
+<view class="container">
+  <!-- Loading -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- No Family State -->
+  <view wx:if="{{!loading && !hasFamily}}">
+    <view class="empty-state">
+      <text class="empty-icon">👨‍👩‍👧‍👦</text>
+      <text class="empty-title">加入或创建家庭</text>
+      <text class="empty-desc">与家人一起互相监督，养成健康习惯</text>
+    </view>
+
+    <view class="action-buttons">
+      <button class="btn-primary" bindtap="showCreateInput">创建家庭</button>
+      <button class="btn-secondary" bindtap="showJoinInput">加入家庭</button>
+    </view>
+
+    <view class="card" wx:if="{{showCreate}}">
+      <text class="section-title">创建家庭</text>
+      <view class="form-group">
+        <input class="form-input" placeholder="输入家庭名称" value="{{newName}}" bindinput="onNewNameInput"/>
+      </view>
+      <view class="btn-row">
+        <button class="btn-primary btn-sm" bindtap="createFamily">确认创建</button>
+        <button class="btn-ghost btn-sm" bindtap="cancelInput">取消</button>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{showJoin}}">
+      <text class="section-title">加入家庭</text>
+      <view class="form-group">
+        <input class="form-input" placeholder="输入家庭码" value="{{joinCode}}" bindinput="onJoinCodeInput"/>
+      </view>
+      <view class="btn-row">
+        <button class="btn-primary btn-sm" bindtap="joinFamily">确认加入</button>
+        <button class="btn-ghost btn-sm" bindtap="cancelInput">取消</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Has Family State -->
+  <view wx:if="{{!loading && hasFamily}}">
+    <view class="family-header card">
+      <text class="family-title">👨‍👩‍👧‍👦 {{familyName}}</text>
+      <view class="code-row" bindtap="copyCode">
+        <text class="code-label">家庭码：</text>
+        <text class="code-value">{{familyCode}}</text>
+        <text class="code-copy">复制</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">家庭成员 ({{members.length}})</text>
+      <view class="member-list">
+        <view class="member-item" wx:for="{{members}}" wx:key="_id">
+          <view class="member-avatar">{{item.nickName[0] || '?'}}</view>
+          <view class="member-info">
+            <text class="member-name">{{item.nickName || '匿名'}}</text>
+            <view class="member-stats">
+              <text class="stat-item">🍽️ {{item.todayMealCount || 0}}</text>
+              <text class="stat-item">🏃 {{item.todayExerciseMin || 0}}分</text>
+              <text class="stat-item">🩸 {{item.todayBSCheck || 0}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">分享家庭码</text>
+      <text class="share-hint">将家庭码分享给家人，让他们加入共同监督</text>
+      <button class="btn-secondary" bindtap="copyCode">复制家庭码</button>
+    </view>
+  </view>
+</view>

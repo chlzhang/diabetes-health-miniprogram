@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="card">
+    <text class="section-title">选择餐次</text>
+    <view class="meal-tabs">
+      <view wx:for="{{mealTypes}}" wx:key="id" class="meal-tab {{activeType===item.id?'active':''}}" data-type="{{item.id}}" bindtap="switchType">
+        <text class="tab-icon">{{item.icon}}</text>
+        <text class="tab-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="card">
+    <text class="section-title">饮食详情</text>
+    <view class="form-group">
+      <text class="form-label">主食用量 (克)</text>
+      <input class="form-input" type="number" placeholder="例如 150" value="{{mainFoodAmount}}" bindinput="onMainFoodInput"/>
+    </view>
+    <view class="form-group">
+      <text class="form-label">配菜搭配</text>
+      <view class="toggle-row">
+        <view class="toggle-item {{hasVegetable?'on':''}}" bindtap="toggleVegetable"><text class="toggle-check">{{hasVegetable?'✓':''}}</text><text>蔬菜</text></view>
+        <view class="toggle-item {{hasProtein?'on':''}}" bindtap="toggleProtein"><text class="toggle-check">{{hasProtein?'✓':''}}</text><text>蛋白质</text></view>
+      </view>
+      <view class="toggle-row">
+        <view class="toggle-item {{hasSweetFood?'on':''}}" bindtap="toggleSweetFood"><text class="toggle-check">{{hasSweetFood?'✓':''}}</text><text>甜食</text></view>
+        <view class="toggle-item {{hasSweetDrink?'on':''}}" bindtap="toggleSweetDrink"><text class="toggle-check">{{hasSweetDrink?'✓':''}}</text><text>含糖饮料</text></view>
+      </view>
+    </view>
+    <view class="form-group">
+      <text class="form-label">饮食描述</text>
+      <textarea class="form-textarea" placeholder="例如: 半碗米饭+清炒西兰花+豆腐汤" value="{{description}}" bindinput="onDescInput"/>
+    </view>
+  </view>
+  <button class="btn-primary" bindtap="submitMeal" loading="{{submitting}}">保存饮食记录</button>
+  <view class="card" wx:if="{{todayMeals.length>0}}">
+    <text class="section-title">今日已记录</text>
+    <view class="meal-list">
+      <view class="meal-record" wx:for="{{todayMeals}}" wx:key="_id">
+        <view class="meal-record-header">
+          <text class="meal-record-type">{{item.mealType==='breakfast'?'早餐':item.mealType==='lunch'?'午餐':item.mealType==='dinner'?'晚餐':'加餐'}}</text>
+          <view class="tag tag-{{item.healthLevel||'ok'}}">{{item.healthLevel==='good'?'健康':item.healthLevel==='ok'?'一般':'注意'}}</view>
+        </view>
+        <text class="meal-record-desc">{{item.description||'无描述'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,138 @@
+.date-header {
+  padding: 16rpx 0 24rpx;
+}
+.date-text {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  display: block;
+}
+.date-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+.summary-card {
+  padding: 28rpx;
+}
+.summary-row {
+  display: flex;
+  align-items: center;
+}
+.summary-icon {
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+.summary-info {
+  flex: 1;
+}
+.summary-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: block;
+}
+.summary-sub {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 4rpx;
+  display: block;
+}
+.arrow {
+  font-size: 36rpx;
+  color: #ccc;
+  margin-left: 12rpx;
+}
+.progress-ring {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #f0fdf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12rpx;
+}
+.progress-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #16a34a;
+}
+.progress-bar {
+  height: 8rpx;
+  background: #e5e7eb;
+  border-radius: 4rpx;
+  margin-top: 16rpx;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #0d9488;
+  border-radius: 4rpx;
+  transition: width 0.3s;
+}
+.quick-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 24rpx 0;
+}
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx 40rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.action-icon {
+  font-size: 40rpx;
+  color: #0d9488;
+  font-weight: 700;
+  line-height: 1;
+}
+.action-label {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+.family-list {
+  margin-top: 8rpx;
+}
+.family-item {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #f3f4f6;
+}
+.family-item:last-child {
+  border-bottom: none;
+}
+.family-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #0d9488;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.family-info {
+  flex: 1;
+}
+.family-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1a1a1a;
+  display: block;
+}
+.family-status {
+  font-size: 22rpx;
+  color: #999;
+  display: block;
+}

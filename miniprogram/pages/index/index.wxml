@@ -1,0 +1,84 @@
+﻿<view class="container">
+  <view class="date-header">
+    <text class="date-text">{{today}}</text>
+    <text class="date-label">今日健康概览</text>
+  </view>
+
+  <view class="card summary-card" bindtap="goMeal">
+    <view class="summary-row">
+      <view class="summary-icon">🍽️</view>
+      <view class="summary-info">
+        <text class="summary-title">饮食记录</text>
+        <text class="summary-sub" wx:if="{{diet.count > 0}}">已记录 {{diet.count}} 餐</text>
+        <text class="summary-sub" wx:else>今日还未记录</text>
+      </view>
+      <view class="tag tag-{{diet.level || 'ok'}}" wx:if="{{diet.count > 0}}">
+        {{diet.level === 'good' ? '健康' : diet.level === 'ok' ? '一般' : '注意'}}
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <view class="card summary-card" bindtap="goExercise">
+    <view class="summary-row">
+      <view class="summary-icon">🏃</view>
+      <view class="summary-info">
+        <text class="summary-title">运动锻炼</text>
+        <text class="summary-sub">本周 {{exercise.minutes}} / {{exercise.goal}} 分钟</text>
+      </view>
+      <view class="progress-ring">
+        <text class="progress-text">{{exerciseText}}</text>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="{{progressStyle}}"></view>
+    </view>
+  </view>
+
+  <view class="card summary-card" bindtap="goBloodSugar">
+    <view class="summary-row">
+      <view class="summary-icon">🩸</view>
+      <view class="summary-info">
+        <text class="summary-title">血糖监测</text>
+        <text class="summary-sub" wx:if="{{bloodSugar.latest !== null}}">
+          最新 {{bloodSugar.latest}} mmol/L
+        </text>
+        <text class="summary-sub" wx:else>今日还未测量</text>
+      </view>
+      <view class="tag tag-{{bloodSugar.latestStatus === 'normal' ? 'good' : 'warn'}}" wx:if="{{bloodSugar.latest !== null}}">
+        {{bloodSugar.latestStatus === 'normal' ? '正常' : bloodSugar.latestStatus === 'high' ? '偏高' : '偏低'}}
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <view class="quick-actions">
+    <view class="action-btn" bindtap="goMeal">
+      <text class="action-icon">+</text>
+      <text class="action-label">记饮食</text>
+    </view>
+    <view class="action-btn" bindtap="goExercise">
+      <text class="action-icon">+</text>
+      <text class="action-label">记运动</text>
+    </view>
+    <view class="action-btn" bindtap="goBloodSugar">
+      <text class="action-icon">+</text>
+      <text class="action-label">测血糖</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{family.length > 0}}">
+    <text class="section-title">家人动态</text>
+    <view class="family-list">
+      <view class="family-item" wx:for="{{family}}" wx:key="_id">
+        <view class="family-avatar">{{item.nickName[0] || '?'}}</view>
+        <view class="family-info">
+          <text class="family-name">{{item.nickName}}</text>
+          <text class="family-status" wx:if="{{item.todayMealCount > 0}}">今日已记 {{item.todayMealCount}} 餐</text>
+          <text class="family-status" wx:else>今日暂无记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

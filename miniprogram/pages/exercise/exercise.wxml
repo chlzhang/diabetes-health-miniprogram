@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="card">
+    <text class="section-title">选择运动</text>
+    <view class="sport-grid">
+      <view wx:for="{{sportTypes}}" wx:key="id" class="sport-item {{activeSport===item.id?'active':''}}" data-id="{{item.id}}" bindtap="switchSport">
+        <text class="sport-name">{{item.name}}</text>
+        <text class="sport-met">MET {{item.met}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="card">
+    <text class="section-title">运动详情</text>
+    <view class="form-group">
+      <text class="form-label">运动时长 (分钟)</text>
+      <input class="form-input" type="number" placeholder="例如 30" value="{{duration}}" bindinput="onDurationInput"/>
+    </view>
+  </view>
+  <button class="btn-primary" bindtap="submitExercise" loading="{{submitting}}">保存运动记录</button>
+  <view class="card" wx:if="{{todayExercises.length>0}}">
+    <text class="section-title">今日已记录</text>
+    <view class="ex-list">
+      <view class="ex-record" wx:for="{{todayExercises}}" wx:key="_id">
+        <text class="ex-name">{{item.sportType}}</text>
+        <text class="ex-detail">{{item.duration}}分钟 / {{item.calories}}千卡</text>
+      </view>
+    </view>
+  </view>
+</view>

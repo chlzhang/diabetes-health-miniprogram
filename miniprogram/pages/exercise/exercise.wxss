@@ -1,0 +1,13 @@
+.sport-grid{display:flex;flex-wrap:wrap;gap:12rpx;}
+.sport-item{padding:16rpx 20rpx;border:2rpx solid #e5e7eb;border-radius:12rpx;text-align:center;min-width:140rpx;}
+.sport-item.active{border-color:#0d9488;background:#f0fdfa;}
+.sport-name{font-size:26rpx;font-weight:500;display:block;}
+.sport-met{font-size:20rpx;color:#999;display:block;}
+.form-group{margin-bottom:24rpx;}
+.form-label{font-size:26rpx;font-weight:500;color:#333;margin-bottom:12rpx;display:block;}
+.form-input{border:2rpx solid #e5e7eb;border-radius:12rpx;padding:16rpx 20rpx;font-size:28rpx;}
+.ex-list{margin-top:8rpx;}
+.ex-record{padding:12rpx 0;border-bottom:1rpx solid #f3f4f6;display:flex;justify-content:space-between;}
+.ex-record:last-child{border-bottom:none;}
+.ex-name{font-size:28rpx;font-weight:500;}
+.ex-detail{font-size:24rpx;color:#666;}

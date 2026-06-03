@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="card">
+    <text class="section-title">测量时间</text>
+    <view class="time-tabs">
+      <view wx:for="{{timePoints}}" wx:key="id" class="time-tab {{activeTimePoint===item.id?'active':''}}" data-id="{{item.id}}" bindtap="switchTimePoint">
+        <text class="tab-icon">{{item.icon}}</text>
+        <text class="tab-name">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <text class="section-title">血糖数值</text>
+    <view class="form-group">
+      <view class="input-row">
+        <input class="form-input sugar-input" type="digit" placeholder="例如 5.6" value="{{bloodSugarValue}}" bindinput="onValueInput" bindblur="checkStatus"/>
+        <text class="unit-label">mmol/L</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card result-card" wx:if="{{statusResult}}">
+    <view class="result-header">
+      <text class="result-value">{{statusResult.value}}</text>
+      <text class="result-unit">mmol/L</text>
+      <view class="tag tag-{{statusResult.status==='normal'?'good':statusResult.status==='high'?'warn':'warn'}}">
+        {{statusResult.status==='normal'?'正常':statusResult.status==='high'?'偏高':'偏低'}}
+      </view>
+    </view>
+    <view class="result-std">
+      <text class="std-label">{{statusResult.standard.label}}参考范围：</text>
+      <text class="std-value">{{statusResult.standard.low}} ~ {{statusResult.standard.normal}} mmol/L</text>
+    </view>
+    <view class="result-suggestion">
+      <text class="suggestion-icon">💡</text>
+      <text class="suggestion-text">{{statusResult.suggestion}}</text>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="submitBloodSugar" loading="{{submitting}}">保存血糖记录</button>
+
+  <view class="card" wx:if="{{todayRecords.length>0}}">
+    <text class="section-title">今日记录</text>
+    <view class="record-list">
+      <view class="record-item" wx:for="{{todayRecords}}" wx:key="_id">
+        <view class="record-left">
+          <text class="record-time">{{item.timePoint==='fasting'?'空腹':item.timePoint==='post_meal'?'餐后2h':'睡前'}}</text>
+          <text class="record-val">{{item.value}} mmol/L</text>
+        </view>
+        <view class="tag tag-{{item.status==='normal'?'good':'warn'}}">
+          {{item.status==='normal'?'正常':item.status==='high'?'偏高':'偏低'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
